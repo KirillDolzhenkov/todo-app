@@ -68,7 +68,6 @@ function App() {
     }
 
     return (
-
         <div className="App">
             {
                 todoListsData.map(tl => {

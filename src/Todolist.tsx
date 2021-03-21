@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {FilterValueType} from "./App";
+import {AddItemForm} from "./AddItemForm";
 
 
 
@@ -22,8 +23,9 @@ type TodolistPropsType = {
 }
 
 export const Todolist: React.FC<TodolistPropsType> = (props) => {
+    let addTask = (title: string) => props.addTask(title, props.todolistID )
 
-    let [inputValue, setInputValue] = useState<string>('');
+   /* let [inputValue, setInputValue] = useState<string>('');
     let [error, setError] = useState<null | string>(null)
 
     let addTask = () => {
@@ -40,7 +42,7 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
         if (e.charCode === 13) {
             addTask();
         }
-    }
+    }*/
 
     const onAllClickHandler = () => props.setFilterValue("all", props.todolistID)
     const onActiveClickHandler = () => props.setFilterValue("active", props.todolistID)
@@ -49,7 +51,8 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
     return (
         <div>
             <h3>What to learn <button onClick={()=>{props.removeTodolist(props.todolistID)}}>X</button> </h3>
-            <div>
+            <AddItemForm addItem={addTask}/>
+            {/*<div>
                 <input value={inputValue}
                        onChange={onChangeHandler}
                        onKeyPress={onKeyPressHandler}
@@ -57,7 +60,7 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
                 />
                 <button onClick={addTask}>+</button>
                 {error && <div className={"error-message"}>Title is required</div>}
-            </div>
+            </div>*/}
             <ul>
                 {
                     props.tasks.map(t => {
