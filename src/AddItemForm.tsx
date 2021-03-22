@@ -6,10 +6,10 @@ type AddItemFormPropsType = {
 
 export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
 
-    let [inputValue, setInputValue] = useState<string>('');
-    let [error, setError] = useState<null | string>(null)
+    const [inputValue, setInputValue] = useState<string>('');
+    const [error, setError] = useState<null | string>(null)
 
-    let addItem = () => {
+    const addItem = () => {
         if (inputValue.trim()) {
             props.addItem(inputValue);
             setInputValue('');
