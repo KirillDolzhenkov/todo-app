@@ -103,15 +103,16 @@ function App() {
                     <Button color="inherit" variant={"outlined"}>Login</Button>
                 </Toolbar>
             </AppBar>*/}
+
             <AddItemForm addItem={AddTodolist}/>
             {
                 todoListsData.map(tl => {
                     let TasksForTodolist = tasksData[tl.id];
                     if (tl.filter === "active") {
-                        TasksForTodolist = TasksForTodolist.filter(t => t.isDone !== true);
+                        TasksForTodolist = TasksForTodolist.filter(t => t.isDone);
                     }
                     if (tl.filter === "completed") {
-                        TasksForTodolist = TasksForTodolist.filter(t => t.isDone !== false);
+                        TasksForTodolist = TasksForTodolist.filter(t => !t.isDone);
                     }
                     return (
 

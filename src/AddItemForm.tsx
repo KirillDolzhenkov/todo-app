@@ -47,7 +47,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
             <IconButton onClick={addItem}>
                 <AddBox/>
             </IconButton>
-           {error && <div className={"error-message"}>Title is required</div>}
+            {/*{error && <div className={"error-message"}>Title is required</div>}*/}
         </div>
     )
 }
