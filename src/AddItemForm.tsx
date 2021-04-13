@@ -12,11 +12,15 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
     const [error, setError] = useState<null | string>(null)
 
     const addItem = () => {
-        if (inputValue.trim()) {
+        /*if (inputValue.trim()) {
             props.addItem(inputValue);
             setInputValue('');
         } else {
             setError("Title is required")
+        }*/
+        if (inputValue.trim()) {
+            props.addItem(inputValue);
+            setInputValue('');
         }
     }
 
@@ -31,6 +35,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
         <div>
             <TextField
                 variant={"outlined"}
+                value={inputValue}
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
                 /*className={error ? "error" : ""}*/ //rudiment

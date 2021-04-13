@@ -47,7 +47,9 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
                 </IconButton>
             </h3>
             <AddItemForm addItem={addTask}/>
-            <ul>
+
+            <ul style={{listStyle: "none", padding: 0}}>
+
                 {
                     props.tasks.map(t => {
                         const removeTask = () => props.removeTask(t.id, props.todolistID);
