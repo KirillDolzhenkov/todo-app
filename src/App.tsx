@@ -3,6 +3,8 @@ import { v1 } from 'uuid';
 import './App.css';
 import {TasksType, Todolist} from "./Todolist";
 import {AddItemForm} from "./AddItemForm";
+import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
+import { Menu } from '@material-ui/icons';
 
 export type FilterValueType = "all"| "active"| "completed"
 
@@ -87,7 +89,20 @@ function App() {
     }
 
     return (
+
         <div className="App">
+
+            {/*<AppBar position="static">
+                <Toolbar style={{justifyContent: "space-between"}}>
+                    <IconButton edge="start" color="inherit" aria-label="menu">
+                        <Menu/>
+                    </IconButton>
+                    <Typography variant="h6">
+                        TodoLists
+                    </Typography>
+                    <Button color="inherit" variant={"outlined"}>Login</Button>
+                </Toolbar>
+            </AppBar>*/}
             <AddItemForm addItem={AddTodolist}/>
             {
                 todoListsData.map(tl => {
