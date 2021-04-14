@@ -18,6 +18,12 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
         }
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>)=>(setTitle(e.currentTarget.value));
+    const onKeyPressHandler = (e: KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            setEditMode(false)
+            props.changeTitle(title)
+        }
+    }
     return (
         editMode
             ? /*<input
@@ -32,6 +38,7 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
                 value={title}
                 autoFocus={true}
                 onChange={onChangeHandler}
+                onKeyPress={onKeyPressHandler}
                 onBlur={offEditMode}
             />
             : <span onDoubleClick={onEditMode}>{props.title}</span>

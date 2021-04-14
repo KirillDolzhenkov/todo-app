@@ -12,16 +12,13 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
     const [error, setError] = useState<null | string>(null)
 
     const addItem = () => {
-        /*if (inputValue.trim()) {
+        if (inputValue.trim()) {
             props.addItem(inputValue);
             setInputValue('');
         } else {
             setError("Title is required")
-        }*/
-        if (inputValue.trim()) {
-            props.addItem(inputValue);
-            setInputValue('');
         }
+
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>)=>(setInputValue(e.currentTarget.value));
