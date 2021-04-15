@@ -39,7 +39,7 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
     return (
         <div>
             <h3>
-                <EditableSpan title={props.title} changeTitle={changeTlTitle} />
+                <EditableSpan title={props.title} changeTitle={changeTlTitle}/>
                 {/*<button onClick={()=>{props.removeTodolist(props.todolistID)}}>X</button>*/}
 
                 <IconButton onClick={()=>{props.removeTodolist(props.todolistID)}}>

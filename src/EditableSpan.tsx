@@ -9,19 +9,26 @@ type EditableSpanPropsType = {
 export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
     const [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(props.title)
+    const [error, setError] = useState<null | string>(null)
 
     const onEditMode = () => setEditMode(true)
     const offEditMode = () => {
         if (title) {
             setEditMode(false)
             props.changeTitle(title)
+        } else {
+            setError("Title is required")
         }
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>)=>(setTitle(e.currentTarget.value));
     const onKeyPressHandler = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
-            setEditMode(false)
-            props.changeTitle(title)
+            if (title){
+                setEditMode(false)
+                props.changeTitle(title)
+            } else {
+                setError("Title is required")
+            }
         }
     }
     return (
@@ -40,6 +47,8 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
                 onBlur={offEditMode}
+                error={!!error}
+                helperText={error}
             />
             : <span onDoubleClick={onEditMode}>{props.title}</span>
 
