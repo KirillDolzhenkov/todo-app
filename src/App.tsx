@@ -8,7 +8,7 @@ import { Menu } from '@material-ui/icons';
 
 export type FilterValueType = "all"| "active"| "completed"
 
-type TodoListType = {
+export type TodoListType = {
     id: string
     title: string
     filter: FilterValueType
@@ -112,21 +112,35 @@ function App() {
                 <Grid container spacing={3} >
                     {
                         todoListsData.map(tl => {
-                            let TasksForTodolist = tasksData[tl.id];
+                            /*let TasksForTodolist = tasksData[tl.id];
                             if (tl.filter === "active") {
                                 TasksForTodolist = TasksForTodolist.filter(t => !t.isDone);
                             }
                             if (tl.filter === "completed") {
                                 TasksForTodolist = TasksForTodolist.filter(t => t.isDone);
+                            }*/
+                            function getTasksForTodolist(todoList: TodoListType) {
+                                switch (tl.filter) {
+                                    case "active": {
+                                        return tasksData[tl.id].filter(t => !t.isDone)
+                                    }
+                                    case "completed": {
+                                        return tasksData[tl.id].filter(t => t.isDone)
+                                    }
+                                    default:
+                                        return tasksData[tl.id];
+                                }
                             }
+                            const tasksFilter= getTasksForTodolist(tl)
                             return (
+
 
                                 <Grid item key={tl.id}>
                                     <Paper elevation={2} style={{padding: "10px"}}>
                                         <Todolist
                                             title={tl.title}
                                             todolistID={tl.id}
-                                            tasks={TasksForTodolist}
+                                            tasks={tasksFilter}
                                             removeTask={RemoveTask}
                                             setFilterValue={SetFilterValue}
                                             addTask={AddTask}

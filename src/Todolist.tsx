@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {FilterValueType} from "./App";
+import {FilterValueType, TodoListType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
