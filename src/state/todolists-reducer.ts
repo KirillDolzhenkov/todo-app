@@ -19,6 +19,7 @@ export type ChangeTodolistFilterActionType ={
     filter: FilterValueType
     id: string
 }
+
 /*type ActionType = {
     type: string
     [key: string]: any
