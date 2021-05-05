@@ -100,14 +100,16 @@ function AppWithReducers() {
     }
     const RemoveTodolist = (todolistID: string) => {
         const action = removeTodolistAC(todolistID);
+        dispatchToTasks(action);
         dispatchToTodoLists(action);
 
         //
         /*setTodoListsData(todoListsData.filter(tl =>tl.id !==todolistID));*/
     }
     const AddTodolist = (title: string) => {
-        const action = addTodolistAC(title)
-        dispatchToTodoLists(action)
+        const action = addTodolistAC(title);
+        dispatchToTasks(action);
+        dispatchToTodoLists(action);
         //
        /*let newTodolistID = v1()
         let newTodolist: TodoListType = {id: newTodolistID, title: title, filter: 'all'}
