@@ -5,7 +5,7 @@ import {TasksType, Todolist} from "./Todolist";
 import {AddItemForm} from "./AddItemForm";
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import {Menu} from '@material-ui/icons';
-import {addTodolistAC, removeTodolistAC, todolistsReducer, changeTodolistTitleAC} from "./state/todolists-reducer";
+import {addTodolistAC, removeTodolistAC, todolistsReducer, changeTodolistTitleAC, changeTodolistFilterAC} from "./state/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
 
 export type FilterValueType = "all"| "active"| "completed"
@@ -56,9 +56,9 @@ function AppWithReducers() {
         tasksData[todolistID] = [newTask, ...tasksData[todolistID]]
         setTaskData({...tasksData});*/
     }
-    const SetFilterValue = (value: FilterValueType, todolistID: string ) => {
-        const action = addTaskAC(value, todolistID)
-        dispatchToTasks(action)
+    const SetFilterValue = (filter: FilterValueType, id: string) => {
+        const action = changeTodolistFilterAC(filter, id)
+        dispatchToTodoLists(action)
         //
         /*let todoList = todoListsData.find(tl => tl.id === todolistID );
         if (todoList) {
@@ -87,8 +87,8 @@ function AppWithReducers() {
             setTaskData({...tasksData});
         }*/
     }
-    const changeTaskTitle = (taskId: string, editTitle: string,todolistID: string ) => {
-        const action = changeTaskTitleAC(taskId,editTitle,todolistID)
+    const changeTaskTitle = (taskId: string, editTitle: string,todolistId: string ) => {
+        const action = changeTaskTitleAC(taskId,editTitle,todolistId)
         dispatchToTasks(action)
         //
         /*let todoListTasks = tasksData[todolistID]

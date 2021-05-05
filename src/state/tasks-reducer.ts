@@ -41,23 +41,23 @@ export type ActionTypes =
 export const tasksReducer = (state: TasksStateType, action: ActionTypes): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
-            let copyState = {...state}
-            copyState[action.todolistId] = copyState[action.todolistId].filter(t => t.id !== action.tasksId)
-            return copyState
+            let copyState = {...state};
+            copyState[action.todolistId] = copyState[action.todolistId].filter(t => t.id !== action.tasksId);
+            return copyState;
         }
 
         case 'ADD-TASK': {
-            let newTask = {id: v1(), title: action.title, isDone: false}
-            return {...state, [action.todolistId]: [newTask, ...state[action.todolistId]]}
+            let newTask = {id: v1(), title: action.title, isDone: false};
+            return {...state, [action.todolistId]: [newTask, ...state[action.todolistId]]};
         }
         case 'CHANGE-TASK-STATUS': { // used .map (but used .find at App)
 
-            let copyState = {...state}
+            let copyState = {...state};
             let updateTask = copyState[action.todolistId].map(task => {
                 if (task.id === action.taskId) {
-                    return {...task, isDone: action.isDone}
+                    return {...task, isDone: action.isDone};
                 } else {
-                    return task
+                    return task;
                 }
             })
             return {
@@ -67,7 +67,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionTypes): TasksS
         }
         // new
         case "CHANGE-TASK-TITLE":
-            let copyState = {...state}
+            let copyState = {...state};
             let tasks = copyState[action.todolistId]
             let task =  tasks.find(t => t.id === action.taskId);
            /* if (changedValue) {
@@ -78,16 +78,17 @@ export const tasksReducer = (state: TasksStateType, action: ActionTypes): TasksS
             }
                 return copyState
         case "ADD-TODOLIST":{
-            let copyState = {...state}
+            let copyState = {...state};
             copyState[action.todolistId] = []
-            return copyState
+            return copyState;
         }
         case "REMOVE-TODOLIST":{
-            let copyState = {...state}
-            return copyState
+            let copyState = {...state};
+            delete copyState[action.id]
+            return copyState;
         }
         default:
-            return state
+            return state;
 
     }
 }
@@ -96,7 +97,8 @@ export const removeTaskAC = (tasksId: string, todolistId: string): RemoveTaskAct
     return {
         type: "REMOVE-TASK",
         tasksId,
-        todolistId}
+        todolistId
+    }
 
 }
 
