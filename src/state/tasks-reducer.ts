@@ -68,30 +68,30 @@ export const tasksReducer = (state: TasksStateType, action: ActionTypes): TasksS
         // new
         case "CHANGE-TASK-TITLE":
             let copyState = {...state};
-            let tasks = copyState[action.todolistId]
-            let task =  tasks.find(t => t.id === action.taskId);
-           /* if (changedValue) {
-                changedValue.title = editTitle;
-                return setTaskData({...tasksData})*/
+            let tasks = copyState[action.todolistId];
+            let task = tasks.find(t => t.id === action.taskId);
+            /* if (changedValue) {
+                 changedValue.title = editTitle;
+                 return setTaskData({...tasksData})*/
             if (task) {
-                task.title = action.title
+                task.title = action.title;
             }
-                return copyState
-        case "ADD-TODOLIST":{
+            return copyState
+        case "ADD-TODOLIST": {
             let copyState = {...state};
-            copyState[action.todolistId] = []
+            copyState[action.todolistId] = [];
             return copyState;
         }
-        case "REMOVE-TODOLIST":{
+        case "REMOVE-TODOLIST": {
             let copyState = {...state};
-            delete copyState[action.id]
+            delete copyState[action.id];
             return copyState;
         }
         default:
             return state;
 
     }
-}
+};
 
 export const removeTaskAC = (tasksId: string, todolistId: string): RemoveTaskActionType => {
     return {
@@ -100,7 +100,7 @@ export const removeTaskAC = (tasksId: string, todolistId: string): RemoveTaskAct
         todolistId
     }
 
-}
+};
 
 export const addTaskAC = (title: string, todolistId: string): AddTaskActionType => {
     return {
@@ -108,7 +108,7 @@ export const addTaskAC = (title: string, todolistId: string): AddTaskActionType 
         title,
         todolistId
     }
-}
+};
 
 export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string): ChangeTaskStatusActionType => {
     return {
@@ -117,7 +117,7 @@ export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: 
         isDone,
         todolistId
     }
-}
+};
 
 export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
     return {
@@ -126,4 +126,4 @@ export const changeTaskTitleAC = (taskId: string, title: string, todolistId: str
         title,
         todolistId
     }
-}
+};
