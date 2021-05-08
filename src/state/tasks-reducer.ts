@@ -91,7 +91,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionTypes): TasksS
             return state;
 
     }
-};
+}
 
 export const removeTaskAC = (tasksId: string, todolistId: string): RemoveTaskActionType => {
     return {
@@ -99,8 +99,7 @@ export const removeTaskAC = (tasksId: string, todolistId: string): RemoveTaskAct
         tasksId,
         todolistId
     }
-
-};
+}
 
 export const addTaskAC = (title: string, todolistId: string): AddTaskActionType => {
     return {
@@ -108,7 +107,7 @@ export const addTaskAC = (title: string, todolistId: string): AddTaskActionType 
         title,
         todolistId
     }
-};
+}
 
 export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: string): ChangeTaskStatusActionType => {
     return {
@@ -117,7 +116,7 @@ export const changeTaskStatusAC = (taskId: string, isDone: boolean, todolistId: 
         isDone,
         todolistId
     }
-};
+}
 
 export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
     return {
@@ -126,4 +125,4 @@ export const changeTaskTitleAC = (taskId: string, title: string, todolistId: str
         title,
         todolistId
     }
-};
+}

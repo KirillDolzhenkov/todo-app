@@ -19,7 +19,7 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
             setError("Title is required");
         }
 
-    };
+    }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>)=>(setInputValue(e.currentTarget.value));
     const onKeyPressHandler = (e: KeyboardEvent) => {
@@ -27,7 +27,8 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
         if (e.key === 'Enter') {
             addItem();
         }
-    };
+    }
+
     return (
         <div>
             <TextField

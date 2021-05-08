@@ -27,14 +27,15 @@ type TodolistPropsType = {
 }
 
 export const Todolist: React.FC<TodolistPropsType> = (props) => {
-    let addTask = (title: string) => props.addTask(title, props.todolistID )
+    let addTask = (title: string) => props.addTask(title, props.todolistID );
 
     const onAllClickHandler = () => props.setFilterValue("all", props.todolistID);
     const onActiveClickHandler = () => props.setFilterValue("active", props.todolistID);
     const onCompletedClickHandler = () => props.setFilterValue("completed", props.todolistID);
     const changeTlTitle = (editTitle: string) => {
-        props.changeTodolistTitle(editTitle, props.todolistID)
-    };
+        props.changeTodolistTitle(editTitle, props.todolistID);
+    }
+
     return (
         <div>
             <h3>
@@ -54,10 +55,12 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
                         const removeTask = () => props.removeTask(t.id, props.todolistID);
                         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
                             props.changeStatus(t.id, e.currentTarget.checked, props.todolistID)
-                        };
+                        }
+
                         const changeTaskTitle = (editTitle: string) => {
                             props.changeTaskTitle(t.id, editTitle, props.todolistID)
-                        };
+                        }
+
                         return (
                             <li key={t.id} className={t.isDone ? "isDone" : ""}>
 

@@ -19,7 +19,8 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
         } else {
             setError("Title is required");
         }
-    };
+    }
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>)=>(setTitle(e.currentTarget.value));
     const onKeyPressHandler = (e: KeyboardEvent) => {
         if (e.key === 'Enter') {
@@ -30,7 +31,8 @@ export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
                 setError("Title is required");
             }
         }
-    };
+    }
+
     return (
         editMode
             ? /*<input
