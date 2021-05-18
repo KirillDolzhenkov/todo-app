@@ -16,9 +16,9 @@ export type TodoListType = {
     filter: FilterValueType
 }
 
-export type TasksStateType = {
+/*export type TasksStateType = {
     [key: string]: Array<TasksType>
-}
+}*/
 
 function AppWithReducers() {
 
@@ -72,8 +72,9 @@ function AppWithReducers() {
         }*/
     }
 
-    const changeTodolistTitle = (editTitle: string, todolistID: string ) => {
-        const action = changeTodolistTitleAC(editTitle, todolistID);
+    const changeTodolistTitle = (editTitle: string, id: string ) => {
+        const action = changeTodolistTitleAC(editTitle, id);
+        debugger
         dispatchToTodoLists(action);
         //
         /*let todoList = todoListsData.find(tl => tl.id === todolistID );
@@ -111,7 +112,6 @@ function AppWithReducers() {
         const action = removeTodolistAC(todolistID);
         dispatchToTasks(action);
         dispatchToTodoLists(action);
-
         //
         /*setTodoListsData(todoListsData.filter(tl =>tl.id !==todolistID));*/
     }
@@ -128,9 +128,7 @@ function AppWithReducers() {
     }
 
     return (
-
         <div className="App">
-
             <AppBar position="static">
                 <Toolbar style={{justifyContent: "space-between"}}>
                     <IconButton edge="start" color="inherit" aria-label="menu">

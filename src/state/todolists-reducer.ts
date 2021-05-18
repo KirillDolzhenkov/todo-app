@@ -15,7 +15,7 @@ export type AddTodolistActionType = {
 export type ChangeTodolistTitleActionType = {
     type: "CHANGE-TODOLIST-TITLE"
     id: string
-    title: string
+    editTitle: string
 }
 
 export type ChangeTodolistFilterActionType = {
@@ -41,26 +41,30 @@ export const todolistsReducer = (state: Array<TodoListType>, action: ActionTypes
             return state.filter(tl => tl.id !== action.id)
         }
         case 'ADD-TODOLIST': {
-            return [...state, {
+            return [ {
                 id: action.todolistId,
                 title: action.title,
                 filter: "all"
-            }]
+            }, ...state]
         }
-        case 'CHANGE-TODOLIST-TITLE': {
+/*        case 'CHANGE-TODOLIST-TITLE': {
             let todoList = state.find(tl => tl.id === action.id);
             if (todoList) {
                 todoList.title = action.title
             }
             return [...state]
-        }
-        case "CHANGE-TODOLIST-FILTER": {
+        }*/
+        case 'CHANGE-TODOLIST-TITLE':
+            return state.map(tl => tl.id === action.id ? {...tl, title: action.editTitle} : tl);
+        /*case "CHANGE-TODOLIST-FILTER": {
             let todoList = state.find(tl => tl.id === action.id);
             if (todoList) {
                 todoList.filter = action.filter
             }
             return [...state]
-        }
+        }*/
+        case "CHANGE-TODOLIST-FILTER":
+            return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl);
         default:
             throw new Error("I don't understand this action type")
 
@@ -82,11 +86,11 @@ export const addTodolistAC = (title: string): AddTodolistActionType => {
     }
 }
 
-export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleActionType => {
+export const changeTodolistTitleAC = (editTitle: string, id: string): ChangeTodolistTitleActionType => {
     return {
         type: "CHANGE-TODOLIST-TITLE",
         id,
-        title
+        editTitle
     }
 }
 
