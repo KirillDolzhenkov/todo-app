@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useCallback, useReducer} from 'react';
 import {v1} from 'uuid';
 import './App.css';
 import {TasksType, Todolist} from "./Todolist";
@@ -21,6 +21,7 @@ export type TodoListType = {
 }*/
 
 function AppWithReducers() {
+    console.log('App is calling')
 
     const todolistID_1 =  v1();
     const todolistID_2 =  v1();
@@ -116,7 +117,7 @@ function AppWithReducers() {
         /*setTodoListsData(todoListsData.filter(tl =>tl.id !==todolistID));*/
     }
 
-    const AddTodolist = (title: string) => {
+    const AddTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title);
         dispatchToTasks(action);
         dispatchToTodoLists(action);
@@ -125,7 +126,7 @@ function AppWithReducers() {
         let newTodolist: TodoListType = {id: newTodolistID, title: title, filter: 'all'}
         setTodoListsData([newTodolist,...todoListsData]);
         setTaskData({...tasksData, [newTodolistID]:[]});*/
-    }
+    }, []);
 
     return (
         <div className="App">

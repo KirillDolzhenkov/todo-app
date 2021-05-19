@@ -27,6 +27,7 @@ type TodolistPropsType = {
 }
 
 export const Todolist: React.FC<TodolistPropsType> = (props) => {
+    console.log('Todolist is calling')
     let addTask = (title: string) => props.addTask(title, props.todolistID );
 
     const onAllClickHandler = () => props.setFilterValue("all", props.todolistID);
