@@ -44,25 +44,25 @@ function AppWithReducers() {
         ],
     });
 
-    const RemoveTask = (taskId: string, todolistID: string) => {
+    const RemoveTask = useCallback((taskId: string, todolistID: string) => {
         const action = removeTaskAC(taskId, todolistID);
         dispatchToTasks(action);
         //
         /*let todoListTasks = tasksData[todolistID]
         tasksData[todolistID] = todoListTasks.filter(t => t.id !==taskId);
         setTaskData({...tasksData});*/
-    }
+    }, []);
 
-    const AddTask = (title: string,todolistID: string ) => {
+    const AddTask = useCallback((title: string,todolistID: string ) => {
         const action = addTaskAC(title, todolistID);
         dispatchToTasks(action);
         //
         /*let newTask = {id: v1(), title: title, isDone: false}
         tasksData[todolistID] = [newTask, ...tasksData[todolistID]]
         setTaskData({...tasksData});*/
-    }
+    }, []);
 
-    const SetFilterValue = (filter: FilterValueType, id: string) => {
+    const SetFilterValue = useCallback((filter: FilterValueType, id: string) => {
         const action = changeTodolistFilterAC(filter, id);
         dispatchToTodoLists(action);
         //
@@ -71,9 +71,9 @@ function AppWithReducers() {
             todoList.filter = value
             setTodoListsData([...todoListsData]);
         }*/
-    }
+    }, []);
 
-    const changeTodolistTitle = (editTitle: string, id: string ) => {
+    const changeTodolistTitle = useCallback((editTitle: string, id: string ) => {
         const action = changeTodolistTitleAC(editTitle, id);
         debugger
         dispatchToTodoLists(action);
@@ -83,9 +83,9 @@ function AppWithReducers() {
             todoList.title = editTitle
             setTodoListsData([...todoListsData]);
         }*/
-    }
+    }, []);
 
-    const ChangeStatus = (taskId: string, isDoneValue: boolean,todolistID: string ) => {
+    const ChangeStatus = useCallback((taskId: string, isDoneValue: boolean,todolistID: string ) => {
         const action = changeTaskStatusAC(taskId,isDoneValue,todolistID);
         dispatchToTasks(action);
         //
@@ -95,9 +95,9 @@ function AppWithReducers() {
             changedValue.isDone = isDoneValue;
             setTaskData({...tasksData});
         }*/
-    }
+    }, []);
 
-    const changeTaskTitle = (taskId: string, editTitle: string,todolistId: string ) => {
+    const changeTaskTitle = useCallback((taskId: string, editTitle: string,todolistId: string ) => {
         const action = changeTaskTitleAC(taskId,editTitle,todolistId);
         dispatchToTasks(action);
         //
@@ -107,15 +107,15 @@ function AppWithReducers() {
             changedValue.title = editTitle;
             setTaskData({...tasksData});
         }*/
-    }
+    }, []);
 
-    const RemoveTodolist = (todolistID: string) => {
+    const RemoveTodolist = useCallback((todolistID: string) => {
         const action = removeTodolistAC(todolistID);
         dispatchToTasks(action);
         dispatchToTodoLists(action);
         //
         /*setTodoListsData(todoListsData.filter(tl =>tl.id !==todolistID));*/
-    }
+    }, []);
 
     const AddTodolist = useCallback((title: string) => {
         const action = addTodolistAC(title);
@@ -157,7 +157,9 @@ function AppWithReducers() {
                             if (tl.filter === "completed") {
                                 TasksForTodolist = TasksForTodolist.filter(t => t.isDone);
                             }*/
-                            function getTasksForTodolist(todoList: TodoListType) {
+
+
+                            /*function getTasksForTodolist(todoList: TodoListType) {
                                 switch (tl.filter) {
                                     case "active": {
                                         return tasksData[tl.id].filter(t => !t.isDone);
@@ -168,16 +170,19 @@ function AppWithReducers() {
                                     default:
                                         return tasksData[tl.id];
                                 }
-                            }
-                            const tasksFilter= getTasksForTodolist(tl)
+                            }*/
+                            /*const tasksFilter= getTasksForTodolist(tl)*/
+
+                            const allTodolistTasks =  tasksData[tl.id]; // need rename it
+                            const tasksFilter = allTodolistTasks;
+
                             return (
-
-
                                 <Grid item key={tl.id}>
                                     <Paper elevation={2} style={{padding: "10px"}}>
                                         <Todolist
                                             title={tl.title}
                                             todolistID={tl.id}
+                                            /*tasks={tasksFilter}*/
                                             tasks={tasksFilter}
                                             removeTask={RemoveTask}
                                             setFilterValue={SetFilterValue}
