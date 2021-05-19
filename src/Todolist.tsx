@@ -4,6 +4,7 @@ import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
+import { TodoListType } from "./AppWithReducers";
 
 
 export type TasksType = {
@@ -37,12 +38,26 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
         props.changeTodolistTitle(editTitle, props.todolistID);
     }
 
-    let TasksForTodolist = props.tasks;
+
+    /*const getTasksForTodolist = ()=> {
+        switch (props.filter) {
+            case "active": {
+                return props.tasks.filter(t => !t.isDone);
+            }
+            case "completed": {
+                return props.tasks.filter(t => t.isDone);
+            }
+            default:
+                return props.tasks;
+        }
+    }*/
+
+    let TasksForTodolist =  props.tasks;
     if (props.filter === "active") {
-        TasksForTodolist = props.tasks.filter(t => !t.isDone);
+        TasksForTodolist =  props.tasks.filter(t => !t.isDone);
     }
     if (props.filter === "completed") {
-        TasksForTodolist = props.tasks.filter(t => t.isDone);
+        TasksForTodolist =  props.tasks.filter(t => t.isDone);
     }
 
     return (
@@ -61,7 +76,7 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
             <ul style={{listStyle: "none", padding: 0}}>
 
                 {
-                    props.tasks.map(t => {
+                    TasksForTodolist.map(t => {
                         const removeTask = () => props.removeTask(t.id, props.todolistID);
                         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
                             props.changeStatus(t.id, e.currentTarget.checked, props.todolistID)
