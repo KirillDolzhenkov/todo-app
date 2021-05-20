@@ -27,7 +27,7 @@ type TodolistPropsType = {
     changeTodolistTitle: (editTitle: string, todolistID: string) => void
 }
 
-export const Todolist: React.FC<TodolistPropsType> = (props) => {
+export const Todolist: React.FC<TodolistPropsType> = React.memo((props) => {
     console.log('Todolist is calling')
     let addTask = useCallback((title: string) => props.addTask(title, props.todolistID), []);
 
@@ -76,7 +76,7 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
             <ul style={{listStyle: "none", padding: 0}}>
 
                 {
-                    TasksForTodolist.map(t => {
+                    props.tasks.map(t => {
                         const removeTask = () => props.removeTask(t.id, props.todolistID);
                         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
                             props.changeStatus(t.id, e.currentTarget.checked, props.todolistID)
@@ -127,4 +127,4 @@ export const Todolist: React.FC<TodolistPropsType> = (props) => {
             </div>
         </div>
     )
-}
+});

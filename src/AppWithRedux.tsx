@@ -120,17 +120,18 @@ function AppWithReducers() {
                             }*/
                             /*const tasksFilter= getTasksForTodolist(tl)*/
 
-                            const allTodolistTasks =  tasksData[tl.id]; // need rename it
-                            const tasksFilter = allTodolistTasks;
+                            let TasksForTodolist=  tasksData[tl.id]; // need rename it
+
 
                             return (
                                 <Grid item key={tl.id}>
                                     <Paper elevation={2} style={{padding: "10px"}}>
                                         <Todolist
+                                            key={tl.id}
                                             title={tl.title}
                                             todolistID={tl.id}
                                             /*tasks={tasksFilter}*/
-                                            tasks={tasksFilter}
+                                            tasks={TasksForTodolist}
                                             removeTask={RemoveTask}
                                             setFilterValue={SetFilterValue}
                                             addTask={AddTask}
