@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from "react";
 import {TextField} from "@material-ui/core";
 
 type EditableSpanPropsType = {
@@ -7,11 +7,12 @@ type EditableSpanPropsType = {
 }
 
 export const EditableSpan: React.FC<EditableSpanPropsType> = (props) => {
+
     const [editMode, setEditMode] = useState<boolean>(false);
     const [title, setTitle] = useState<string>(props.title);
     const [error, setError] = useState<null | string>(null);
 
-    const onEditMode = () => setEditMode(true);
+    const onEditMode = () => setEditMode(true)
     const offEditMode = () => {
         if (title) {
             setEditMode(false);

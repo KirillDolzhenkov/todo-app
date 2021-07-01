@@ -4,7 +4,6 @@ import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
 import {Delete} from "@material-ui/icons";
-import { TodoListType } from "./AppWithReducers";
 
 
 export type TasksType = {
@@ -29,28 +28,32 @@ type TodolistPropsType = {
 
 export const Todolist: React.FC<TodolistPropsType> = React.memo((props) => {
     console.log('Todolist is calling')
-    let addTask = useCallback((title: string) => props.addTask(title, props.todolistID), []);
+    const addTask = useCallback((title: string) => {
+        props.addTask(title, props.todolistID)
+    }, [props.addTask, props.todolistID])
 
-    const onAllClickHandler = () => props.setFilterValue("all", props.todolistID);
-    const onActiveClickHandler = () => props.setFilterValue("active", props.todolistID);
-    const onCompletedClickHandler = () => props.setFilterValue("completed", props.todolistID);
-    const changeTlTitle = (editTitle: string) => {
+    const onAllClickHandler = useCallback(() => props.setFilterValue("all", props.todolistID), [props.setFilterValue, props.todolistID]);
+    const onActiveClickHandler = useCallback(() => props.setFilterValue("active", props.todolistID), [props.setFilterValue, props.todolistID]);
+    const onCompletedClickHandler = useCallback(() => props.setFilterValue("completed", props.todolistID), [props.setFilterValue, props.todolistID]);
+
+    const changeTlTitle = useCallback((editTitle: string) => {
         props.changeTodolistTitle(editTitle, props.todolistID);
-    }
+    },[props.todolistID, props.changeTodolistTitle]);
 
 
-    /*const getTasksForTodolist = ()=> {
-        switch (props.filter) {
-            case "active": {
-                return props.tasks.filter(t => !t.isDone);
+
+    /*    const getTasksForTodolist = ()=> {
+            switch (props.filter) {
+                case "active": {
+                    return props.tasks.filter(t => !t.isDone);
+                }
+                case "completed": {
+                    return props.tasks.filter(t => t.isDone);
+                }
+                default:
+                    return props.tasks;
             }
-            case "completed": {
-                return props.tasks.filter(t => t.isDone);
-            }
-            default:
-                return props.tasks;
-        }
-    }*/
+        }*/
 
     let TasksForTodolist =  props.tasks;
     if (props.filter === "active") {
@@ -63,8 +66,6 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo((props) => {
     return (
         <div>
             <h3><EditableSpan title={props.title} changeTitle={changeTlTitle}/>
-                {/*<button onClick={()=>{props.removeTodolist(props.todolistID)}}>X</button>*/}
-
                 <IconButton onClick={() => {
                     props.removeTodolist(props.todolistID)
                 }}>
@@ -76,10 +77,10 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo((props) => {
             <ul style={{listStyle: "none", padding: 0}}>
 
                 {
-                    props.tasks.map(t => {
+                    TasksForTodolist.map(t => {
                         const removeTask = () => props.removeTask(t.id, props.todolistID);
                         const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-                            props.changeStatus(t.id, e.currentTarget.checked, props.todolistID)
+                            props.changeStatus(t.id, e.currentTarget.checked, props.todolistID);
                         }
 
                         const changeTaskTitle = (editTitle: string) => {
@@ -88,18 +89,12 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo((props) => {
 
                         return (
                             <li key={t.id} className={t.isDone ? "isDone" : ""}>
-
                                 <Checkbox
                                     color={"primary"}
                                     checked={t.isDone}
                                     onChange={changeTaskStatus}
                                 />
-                                {/*<input type="checkbox"
-                                       checked={t.isDone}
-                                       onChange={changeTaskStatus}
-                                />*/}
                                 <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
-                                {/*<button onClick={removeTask}>X</button>*/}
                                 <IconButton onClick={removeTask}>
                                     <Delete/>
                                 </IconButton>
@@ -112,17 +107,14 @@ export const Todolist: React.FC<TodolistPropsType> = React.memo((props) => {
                 <Button style={{marginRight: "5px"}}
                         color={"primary"}
                         variant={props.filter === "all" ? "contained" : "outlined"}
-                    /*className={props.filter === "all" ? "active-filter" : ""}*/
                         onClick={onAllClickHandler}>All</Button>
                 <Button style={{marginRight: "5px"}}
                         color={"primary"}
                         variant={props.filter === "active" ? "contained" : "outlined"}
-                    /*className={props.filter === "active" ? "active-filter" : ""}*/
                         onClick={onActiveClickHandler}>Active</Button>
                 <Button style={{marginRight: "5px"}}
                         color={"primary"}
                         variant={props.filter === "completed" ? "contained" : "outlined"}
-                    /*className={props.filter === "completed" ? "active-filter" : ""}*/
                         onClick={onCompletedClickHandler}>Completed</Button>
             </div>
         </div>
