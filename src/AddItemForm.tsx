@@ -1,61 +1,47 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {AddBox} from "@material-ui/icons";
-import {IconButton, TextField} from "@material-ui/core";
-import {Todolist} from "./Todolist";
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {Box, Button, FormControl, IconButton, TextField} from '@material-ui/core';
+import {AddBox} from '@material-ui/icons';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo( (props) => {
-    console.log('AddItemForm is calling')
-    const [inputValue, setInputValue] = useState<string>('');
-    const [error, setError] = useState<null | string>(null);
+export function AddItemForm(props: AddItemFormPropsType) {
+
+    let [title, setTitle] = useState("");
+    let [error, setError] = useState<string | null>(null);
 
     const addItem = () => {
-        if (inputValue.trim()) {
-            props.addItem(inputValue);
-            setInputValue('');
+        if (title.trim() !== "") {
+            props.addItem(title);
+            setTitle("");
         } else {
             setError("Title is required");
         }
-
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>)=>(setInputValue(e.currentTarget.value));
-    const onKeyPressHandler = (e: KeyboardEvent) => {
-       /* if (error !== null){
-            setError(null);
-        }*/
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value);
+    }
+
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
-        if (e.key === 'Enter') {
+        if (e.charCode === 13) {
             addItem();
         }
     }
 
-    return (
-        <div>
-            <TextField
-                variant={"outlined"}
-                value={inputValue}
-                onChange={onChangeHandler}
-                onKeyPress={onKeyPressHandler}
-                /*className={error ? "error" : ""}*/ //rudiment
-                label={"title"}
-                error={!!error}
-                helperText={error}
-            />
-            {/*<input value={inputValue}
+    return <div>
+        <TextField variant="outlined"
+                   error={!!error}
+                   value={title}
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressHandler}
-                   className={error ? "error" : ""}
-            />*/}
-            {/*<button onClick={addItem}>+</button>*/}
-            <IconButton onClick={addItem}>
-                <AddBox/>
-            </IconButton>
-            {/*{error && <div className={"error-message"}>Title is required</div>}*/}
-        </div>
-    )
-});
-
+                   label="Title"
+                   helperText={error}
+        />
+        <IconButton color="primary" onClick={addItem}>
+            <AddBox />
+        </IconButton>
+    </div>
+}

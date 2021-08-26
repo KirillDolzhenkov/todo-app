@@ -7,12 +7,9 @@
 .App > div {
   margin-right: 50px;
 }
-*/
-
 
 .error {
-  border:red 1px solid;
-  outline: 0;
+  border: red 1px solid;
 }
 
 .error-message {
@@ -20,11 +17,10 @@
 }
 
 .active-filter {
-  background-color: #669dde;
-  color: white;
+  background-color: aquamarine;
 }
 
-.isDone {
-  opacity: 0.6;
-  /*text-decoration: line-through;*/
+.is-done {
+  opacity: 0.5;
 }
+*/
