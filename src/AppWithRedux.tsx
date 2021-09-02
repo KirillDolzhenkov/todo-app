@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
 
 export type FilterValuesType = "all" | "active" | "completed";
+
 export type TodolistType = {
     id: string
     title: string
@@ -25,7 +26,8 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-function App() {
+const App: React.FC = () => {
+    console.log("App is called"); //!!!
 
     const dispatch = useDispatch()
     const tasks = useSelector<AppRootState, TasksStateType>(state => state.tasks);
@@ -127,4 +129,6 @@ function App() {
     );
 }
 
-export default App;
+export {
+    App
+}

@@ -11,7 +11,7 @@ export type TaskType = {
     isDone: boolean
 }
 
-type PropsType = {
+type TodolistPropsType = {
     id: string
     title: string
     tasks: Array<TaskType>
@@ -25,7 +25,8 @@ type PropsType = {
     changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
 }
 
-export function Todolist(props: PropsType) {
+const Todolist: React.FC<TodolistPropsType>=(props)=> {
+
     const addTask = (title: string) => {
         props.addTask(title, props.id);
     }
@@ -94,4 +95,6 @@ export function Todolist(props: PropsType) {
     </div>
 }
 
-
+export {
+    Todolist
+}
