@@ -68,35 +68,21 @@ const tasksReducer = (state: TasksStateType = initialState, action: tasksAT): Ta
             // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
             return stateCopy;
         }
-        case "CHANGE-TASK-STATUS": {
-            /*const stateCopy = {...state}*/
-
-            //достанем нужный массив по todolistId:
-            let todolistTasks = state[action.todolistID]; // deleted stateCopy
-            // найдём нужную таску:
-            let task = todolistTasks.find(t => t.id === action.taskID);
-            //изменим таску, если она нашлась
-            if (task) {
-                task.isDone = action.isDone;
-                // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-            }
-            state[action.todolistID] = [...todolistTasks] //fix
+        case 'CHANGE-TASK-STATUS': {
+            let todolistTasks = state[action.todolistID];
+            state[action.todolistID] = todolistTasks
+                .map(t => t.id === action.taskID
+                    ? {...t, isDone: action.isDone}
+                    : t);
             return ({...state});
-
         }
-        case "CHANGE-TASK-TITLE": {
-            const stateCopy = {...state}
-            //достанем нужный массив по todolistId:
-            let todolistTasks = stateCopy[action.todolistID];
-            // найдём нужную таску:
-            let task = todolistTasks.find(t => t.id === action.taskID);
-            //изменим таску, если она нашлась
-            if (task) {
-                task.title = action.title;
-                // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
-                return stateCopy;
-            }
-            return state;
+        case 'CHANGE-TASK-TITLE': {
+            let todolistTasks = state[action.todolistID];
+            state[action.todolistID] = todolistTasks
+                .map(t => t.id === action.taskID
+                    ? {...t, title: action.title}
+                    : t);
+            return ({...state});
         }
         case "ADD-TODOLIST":{
             const copyState = {...state}
