@@ -69,9 +69,10 @@ const tasksReducer = (state: TasksStateType = initialState, action: tasksAT): Ta
             return stateCopy;
         }
         case "CHANGE-TASK-STATUS": {
-            const stateCopy = {...state}
+            /*const stateCopy = {...state}*/
+
             //достанем нужный массив по todolistId:
-            let todolistTasks = stateCopy[action.todolistID];
+            let todolistTasks = state[action.todolistID]; // deleted stateCopy
             // найдём нужную таску:
             let task = todolistTasks.find(t => t.id === action.taskID);
             //изменим таску, если она нашлась
@@ -79,7 +80,9 @@ const tasksReducer = (state: TasksStateType = initialState, action: tasksAT): Ta
                 task.isDone = action.isDone;
                 // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
             }
-            return stateCopy;
+            state[action.todolistID] = [...todolistTasks] //fix
+            return ({...state});
+
         }
         case "CHANGE-TASK-TITLE": {
             const stateCopy = {...state}
