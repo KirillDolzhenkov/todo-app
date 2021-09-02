@@ -7,7 +7,7 @@ type EditableSpanPropsType = {
 }
 
 const EditableSpan: React.FC<EditableSpanPropsType> =(props)=> {
-    console.log("EditableSpan is called"); //!!!
+    /*console.log("EditableSpan is called"); //!!!*/
 
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState(props.value);

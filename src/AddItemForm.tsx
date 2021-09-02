@@ -6,7 +6,7 @@ type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
+const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((props) => {
     console.log("AddItemForm is called"); //!!!
 
     let [title, setTitle] = useState("");
@@ -48,7 +48,7 @@ const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
             <AddBox/>
         </IconButton>
     </div>
-}
+});
 
 export {
     AddItemForm
