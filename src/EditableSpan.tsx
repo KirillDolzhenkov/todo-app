@@ -6,8 +6,8 @@ type EditableSpanPropsType = {
     onChange: (newValue: string) => void
 }
 
-const EditableSpan: React.FC<EditableSpanPropsType> =(props)=> {
-    /*console.log("EditableSpan is called"); //!!!*/
+const EditableSpan: React.FC<EditableSpanPropsType> = React.memo((props) => {
+    console.log("EditableSpan is called"); //!!!
 
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState(props.value);
@@ -17,7 +17,7 @@ const EditableSpan: React.FC<EditableSpanPropsType> =(props)=> {
         setTitle(props.value);
     }
     const activateViewMode = () => {
-        if(title){
+        if (title) {
             setEditMode(false);
             props.onChange(title);
         }
@@ -27,9 +27,9 @@ const EditableSpan: React.FC<EditableSpanPropsType> =(props)=> {
     }
 
     return editMode
-        ?    <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
+        ? <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode}/>
         : <span onDoubleClick={activateEditMode}>{props.value}</span>
-}
+});
 
 export {
     EditableSpan

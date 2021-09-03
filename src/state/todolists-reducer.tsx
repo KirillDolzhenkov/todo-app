@@ -1,4 +1,3 @@
-import React from "react";
 import {v1} from 'uuid';
 import {FilterValuesType, TodolistType} from "../App";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import {TasksStateType} from "../App";
 import {removeTodolistAT, addTodolistAT, todolistId1, todolistId2} from "./todolists-reducer";
 import {v1} from "uuid";
@@ -8,7 +7,6 @@ type removeTaskAT = {
     type: "REMOVE-TASK"
     todolistID: string
     taskID: string
-
 }
 type addTaskAT = {
     type: "ADD-TASK"
@@ -28,14 +26,12 @@ type changeTaskTitleAT = {
     todolistID: string
 }
 
-
 export type tasksAT = removeTaskAT
     | addTaskAT
     | changeTaskStatusAT
     | changeTaskTitleAT
     | addTodolistAT
     | removeTodolistAT
-
 
 
 const initialState = {
@@ -61,13 +57,11 @@ const tasksReducer = (state: TasksStateType = initialState, action: tasksAT): Ta
         case "ADD-TASK": {
             const stateCopy = {...state}
             let task = {id: v1(), title: action.title, isDone: false};
-            //достанем нужный массив по todolistId:
             let todolistTasks = stateCopy[action.todolistID];
-            // перезапишем в этом объекте массив для нужного тудулиста копией, добавив в начало новую таску:
             stateCopy[action.todolistID] = [task, ...todolistTasks];
-            // засетаем в стейт копию объекта, чтобы React отреагировал перерисовкой
             return stateCopy;
         }
+
         case 'CHANGE-TASK-STATUS': {
             let todolistTasks = state[action.todolistID];
             state[action.todolistID] = todolistTasks
