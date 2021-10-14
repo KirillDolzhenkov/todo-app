@@ -1,0 +1,64 @@
+import React, {useEffect, useState} from 'react';
+import {todolistApi} from "../api/todolist-api";
+
+export default {
+    title: 'API'
+}
+
+export const GetTodolists = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        // здесь мы будем делать запрос и ответ закидывать в стейт.
+        // который в виде строки будем отображать в div-ке
+
+        todolistApi.getTodos()
+        .then((res)=>{
+            let todos = res.data
+            setState(todos);
+        })
+    }, []);
+
+    return <div> {JSON.stringify(state)}</div>
+}
+export const CreateTodolist = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const title = 'REACT'
+
+        todolistApi.createTodo(title)
+        .then((res)=>{
+            setState(res.data);
+        })
+
+    }, [])
+
+    return <div> {JSON.stringify(state)}</div>
+}
+export const DeleteTodolist = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const todolistId = '1630a4f1-e303-4502-ba77-c5511b00bcbd';
+
+        todolistApi.deleteTodo(todolistId)
+        .then( (res) => {
+            setState(res.data);
+        })
+
+    }, [])
+
+    return <div> {JSON.stringify(state)}</div>
+}
+export const UpdateTodolistTitle = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        const todolistId = '0e723aeb-ab74-4687-945e-7869af128f3b'
+        const title = 'ANGULAR'
+
+        todolistApi.updateTodolistTitle(todolistId, title)
+        .then( (res) => {
+            setState(res.data);
+        })
+    }, [])
+
+    return <div> {JSON.stringify(state)}</div>
+}
