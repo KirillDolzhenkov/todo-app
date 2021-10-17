@@ -27,7 +27,7 @@ export const CreateTodolist = () => {
 
         todolistApi.createTodo(title)
         .then((res)=>{
-            setState(res.data);
+            setState(res.data.data.item);
         })
 
     }, [])

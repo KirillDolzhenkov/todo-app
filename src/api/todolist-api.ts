@@ -9,18 +9,34 @@ const instance = axios.create({
     }
 })
 
-export const todolistApi =  {
+export const todolistApi = {
 
     getTodos() {
-        return instance.get('todo-lists');
+        return instance.get<Array<TodoType>>('todo-lists');
     },
     createTodo(title: string) {
-        return instance.post('todo-lists',{title});
+        return instance.post<CommonResponseType<{item: TodoType}>>('todo-lists', {title});
     },
     deleteTodo(todolistId: string) {
-        return instance.delete(`todo-lists/${todolistId}`,);
+        return instance.delete<CommonResponseType>(`todo-lists/${todolistId}`,);
     },
     updateTodolistTitle(todolistId: string, title: string) {
-        return instance.put(`todo-lists/${todolistId}`,{title},);
+        return instance.put<CommonResponseType>(`todo-lists/${todolistId}`, {title},);
     }
+}
+
+type CommonResponseType<T = {}> = {
+    resultCode: number
+    messages: Array<string>
+    fieldsError: Array<string>
+    data: {
+        item: T
+    }
+}
+
+type TodoType = {
+    id: string
+    addedDate: string
+    order: number
+    title: string
 }
