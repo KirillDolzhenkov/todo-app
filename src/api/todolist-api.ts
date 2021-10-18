@@ -29,13 +29,13 @@ export const todolistApi = {
         return instance.get<GetTaskType>(`todo-lists/${todolistId}/tasks`);
     },
     deleteTask(todolistId: string, taskId: string) {
-        return instance.delete(`/todo-lists/${todolistId}/tasks/${taskId}`);
+        return instance.delete<CommonResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`);
     },
     createTasks(todolistId: string, title: string) {
-        return instance.post(`/todo-lists/${todolistId}/tasks`, {title},);
+        return instance.post<CommonResponseType>(`/todo-lists/${todolistId}/tasks`, {title},);
     },
     updateTasks(todolistId: string, taskId: string) {
-        return instance.put(`/todo-lists/${todolistId}/tasks/${taskId}`)
+        return instance.put<CommonResponseType<TaskType>>(`/todo-lists/${todolistId}/tasks/${taskId}`);
     }
 }
 
@@ -52,12 +52,6 @@ type GetTaskType = {
     error: string | null
     items: Array<TaskType>
     totalCount: number
-}
-
-type DeleteTask = {
-    resultCode: number
-    messages: ['Something wrong'],
-    data: {}
 }
 
 type TaskType = {
