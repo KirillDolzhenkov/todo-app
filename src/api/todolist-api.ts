@@ -22,6 +22,20 @@ export const todolistApi = {
     },
     updateTodolistTitle(todolistId: string, title: string) {
         return instance.put<CommonResponseType>(`todo-lists/${todolistId}`, {title},);
+    },
+
+    //Tasks:
+    getTasks(todolistId: string) {
+        return instance.get<GetTaskType>(`todo-lists/${todolistId}/tasks`);
+    },
+    deleteTask(todolistId: string, taskId: string) {
+        return instance.delete(`/todo-lists/${todolistId}/tasks/${taskId}`);
+    },
+    createTasks(todolistId: string, title: string) {
+        return instance.post(`/todo-lists/${todolistId}/tasks`, {title},);
+    },
+    updateTasks(todolistId: string, taskId: string) {
+        return instance.put(`/todo-lists/${todolistId}/tasks/${taskId}`)
     }
 }
 
@@ -34,9 +48,36 @@ type CommonResponseType<T = {}> = {
     }
 }
 
+type GetTaskType = {
+    error: string | null
+    items: Array<TaskType>
+    totalCount: number
+}
+
+type DeleteTask = {
+    resultCode: number
+    messages: ['Something wrong'],
+    data: {}
+}
+
+type TaskType = {
+    description: string
+    title: string
+    completed: boolean
+    status: number
+    priority: number
+    startDate: string
+    deadline: string
+    id: string
+    todoListId: string
+    order: number
+    addedDate: string
+}
+
 type TodoType = {
     id: string
     addedDate: string
     order: number
     title: string
 }
+
