@@ -1,7 +1,4 @@
 import React, { useCallback } from 'react'
-import './App.css';
-import { Todolist } from './Todolist';
-import { AddItemForm } from './AddItemForm';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -11,6 +8,11 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { Menu } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+
+import './App.css';
+import { Todolist } from './Todolist';
+import { AddItemForm } from './AddItemForm';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
@@ -20,9 +22,9 @@ import {
     TodolistDomainType
 } from './state/todolists-reducer'
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from './state/tasks-reducer';
-import { useDispatch, useSelector } from 'react-redux';
 import { AppRootStateType } from './state/store';
 import { TaskStatuses, TaskType } from './api/todolists-api'
+
 
 
 export type TasksStateType = {
@@ -84,7 +86,7 @@ function App() {
                         <Menu/>
                     </IconButton>
                     <Typography variant="h6">
-                        News
+                       {/* News*/}
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
