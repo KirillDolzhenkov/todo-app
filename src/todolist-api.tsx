@@ -20,22 +20,23 @@ export const TodolistApi = {
     },
     updateTodoTitle: (p: { todoId: string, title: string }) => {
         return instance.put<BaseResponseType>(`todo-lists/${p.todoId}`, {title: p.title})
+    },
+    getTasks: (todoId: string) => {
+        return instance.get(`todo-lists/${todoId}/tasks`)
+    },
+    createTasks: (p: {todoId: string, title: string}) => {
+        return instance.post(`todo-lists/${p.todoId}/tasks`, {title: p.title})
+    },
+    deleteTasks: (p:{todoId: string, taskId: string}) => {
+        return instance.delete(`todo-lists/${p.todoId}/tasks/${p.taskId}`)
+    },
+    updateTasksTitle: (p: {todoId: string, taskId: string, title: string}) => { //title is not string it must be object
+        return instance.put(`todo-lists/${p.todoId}/tasks/${p.taskId}`, {title: p.title})
     }
 }
 
 export const TaskApi = {
-    getTasks: () => {
-        return instance.get("")
-    },
-    createTodo: (title: string) => {
-        return instance.post("", {})
-    },
-    deleteTodo: (todoId: string) => {
-        return instance.delete(``)
-    },
-    updateTodoTitle: () => {
-        return instance.put(``, {})
-    }
+
 }
 
 // Types
