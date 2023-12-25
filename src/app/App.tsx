@@ -1,25 +1,15 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {
-  AppBar,
-  Button,
-  CircularProgress,
-  Container,
-  IconButton,
-  LinearProgress,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import { Menu } from "@mui/icons-material";
-import { Login } from "features/auth/ui/login/login";
+import React, {useEffect} from "react";
+import {useSelector} from "react-redux";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {AppBar, Button, CircularProgress, Container, LinearProgress, Toolbar, Typography,} from "@mui/material";
+import {Login} from "features/auth/ui/login/login";
 import "./App.css";
-import { TodolistsList } from "features/TodolistsList/TodolistsList";
-import { ErrorSnackbar } from "common/components";
-import { useActions } from "common/hooks";
-import { selectIsLoggedIn } from "features/auth/model/auth.selectors";
-import { selectAppStatus, selectIsInitialized } from "app/app.selectors";
-import { authThunks } from "features/auth/model/auth.slice";
+import {TodolistsList} from "features/TodolistsList/TodolistsList";
+import {ErrorSnackbar} from "common/components";
+import {useActions} from "common/hooks";
+import {selectIsLoggedIn} from "features/auth/model/auth.selectors";
+import {selectAppStatus, selectIsInitialized} from "app/app.selectors";
+import {authThunks} from "features/auth/model/auth.slice";
 
 function App() {
   const status = useSelector(selectAppStatus);
