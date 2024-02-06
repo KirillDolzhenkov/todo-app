@@ -1,6 +1,6 @@
 {
   "name": "todolist",
-  "homepage": "https://KirillDolzhenkov.github.io/todolist",
+  "homepage": "https://KirillDolzhenkov.github.io/todo-app",
   "jest": {
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
