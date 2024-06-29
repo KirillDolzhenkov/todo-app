@@ -1,30 +1,33 @@
-import React, { ChangeEvent, useState } from "react";
-import { TextField } from "@mui/material";
+import React, {ChangeEvent, useState} from "react";
+import {Input} from "@mui/material";
+import {RequestStatusType} from "../../../App/AppSlice";
 
-type EditableSpanPropsType = {
-  value: string;
-  onChange: (newValue: string) => void;
-};
 
-export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
-  let [editMode, setEditMode] = useState(false);
-  let [title, setTitle] = useState(props.value);
 
-  const activateEditMode = () => {
-    setEditMode(true);
-    setTitle(props.value);
-  };
-  const activateViewMode = () => {
-    setEditMode(false);
-    props.onChange(title);
-  };
-  const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value);
-  };
+type EditableSpanProps = {
+    oldTitle: string,
+    updateTasksCallbackHandler:(title:string)=>void,
+    disabled?:RequestStatusType
+}
 
-  return editMode ? (
-    <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
-  ) : (
-    <span onDoubleClick={activateEditMode}>{props.value}</span>
-  );
-});
+export const EditableSpan = React.memo((props: EditableSpanProps)=> {
+
+    const [changeInputOrSpan, setChangeInputOrSpan] = useState(false);
+    const [title,setTitle] = useState(props.oldTitle)
+    function onDoubleClick() {
+        if (props.disabled !=="loading") {
+            setChangeInputOrSpan(!changeInputOrSpan);
+        }
+    }
+    const onBlur=()=> {
+        if(changeInputOrSpan)props.updateTasksCallbackHandler(title);
+        setChangeInputOrSpan(false);
+    }
+    function onChange(e:ChangeEvent<HTMLInputElement>){
+        setTitle( e.currentTarget.value)
+    }
+
+    return changeInputOrSpan?
+        <Input onChange={onChange} value={title} onBlur={onBlur} autoFocus disabled={props.disabled==="loading"}/> :
+        <span onDoubleClick={onDoubleClick}>{props.oldTitle}</span>
+})

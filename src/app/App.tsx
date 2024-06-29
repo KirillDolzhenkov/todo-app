@@ -1,63 +1,55 @@
-import React, {useEffect} from "react";
+import React from 'react';
+import './App.css';
+import {CircularProgress, Container, Grid,} from "@mui/material";
+import {IterableTodo} from "../common/components/TodoList/IterableTodo/IterableTodo";
+import CustomizedSnackbars from "../common/components/SnackBar/SnackBar";
+import {Route} from "react-router-dom";
+import {Login} from "../common/components/Login/Login";
+import {Navigate, Routes} from "react-router";
+import Error from "../common/components/NavigateError/Error";
 import {useSelector} from "react-redux";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AppBar, Button, CircularProgress, Container, LinearProgress, Toolbar, Typography,} from "@mui/material";
-import {Login} from "features/auth/ui/login/login";
-import "./App.css";
-import {TodolistsList} from "features/TodolistsList/TodolistsList";
-import {ErrorSnackbar} from "common/components";
-import {useActions} from "common/hooks";
-import {selectIsLoggedIn} from "features/auth/model/auth.selectors";
-import {selectAppStatus, selectIsInitialized} from "app/app.selectors";
-import {authThunks} from "features/auth/model/auth.slice";
+import {RootStateType} from "./store/store";
 
-function App() {
-  const status = useSelector(selectAppStatus);
-  const isInitialized = useSelector(selectIsInitialized);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+export type ThemeMode = 'dark' | 'light'
 
-  const { initializeApp, logout } = useActions(authThunks);
 
-  useEffect(() => {
-    initializeApp();
-  }, []);
+const App = React.memo(() => {
 
-  const logoutHandler = () => logout();
+    const isInitiolized = useSelector<RootStateType, boolean>(state => state.app.setInitiolized)
 
-  if (!isInitialized) {
+
+    if (!isInitiolized) {
+        return <div style={{position: 'fixed', top: '40%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
+        </div>
+    }
+
+
     return (
-      <div style={{ position: "fixed", top: "30%", textAlign: "center", width: "100%" }}>
-        <CircularProgress />
-      </div>
-    );
-  }
 
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <ErrorSnackbar />
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              TODOLIST
-            </Typography>
-            {isLoggedIn && (
-                <Button color="inherit" variant="outlined" onClick={logoutHandler}>
-                  Log out
-                </Button>
-            )}
-          </Toolbar>
-          {status === "loading" && <LinearProgress />}
-        </AppBar>
-        <Container fixed>
-          <Routes>
-            <Route path={"/"} element={<TodolistsList />} />
-            <Route path={"/login"} element={<Login />} />
-          </Routes>
-        </Container>
-      </div>
-    </BrowserRouter>
-  );
-}
+        <div>
+            <CustomizedSnackbars/>
+            <Container fixed>
 
+                <Grid container>
+                    <Grid container mt={"10%"}>
+                        <Routes>
+                            <Route path={"/"} element={<IterableTodo/>}/>
+                            <Route path={"/login"} element={<Login/>}/>
+                            <Route path={'404'} element={<Error/>}/>
+                            <Route path={'*'} element={<Navigate to={'404'}/>}/>
+                        </Routes>
+                    </Grid>
+                </Grid>
+
+            </Container>
+        </div>
+
+
+    )
+
+})
 export default App;
+
+
+

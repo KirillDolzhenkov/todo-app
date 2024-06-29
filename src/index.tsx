@@ -1,13 +1,30 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./app/App";
-import { store } from "app/store";
-import { Provider } from "react-redux";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import {Provider} from "react-redux";
+import App from "./App/App";
+import {store} from "./App/store/store";
+import {ThemeTogglerHOC} from "App/ThemeTogglerHOC/ThemeTogglerHOC";
+import {PersistentDrawerLeft} from "./common/components/ButtonAndMenu/MenuSettings/MenuSettings";
+import {BrowserRouter} from "react-router-dom";
 
-const root = createRoot(document.getElementById("root") as HTMLElement);
-root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
 );
+root.render(
+      <Provider store={store}>
+          <BrowserRouter>
+          <ThemeTogglerHOC>
+              <PersistentDrawerLeft ><App /></PersistentDrawerLeft>
+
+          </ThemeTogglerHOC>
+          </BrowserRouter>
+
+      </Provider>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
